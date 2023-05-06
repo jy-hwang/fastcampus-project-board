@@ -28,13 +28,11 @@ import lombok.ToString;
 @Entity
 public class Article extends AuditingFields {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  
+  @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)  private Long id;
+
   @Setter @Column(nullable = false) private String title; // 제목
   @Setter @Column(nullable = false, length = 10000) private String content; // 본문
-  
+
   @Setter  private String hashtag; // 해시태그
 
   @ToString.Exclude
@@ -49,7 +47,7 @@ public class Article extends AuditingFields {
     this.content = content;
     this.hashtag = hashtag;
   }
-  
+
   public static Article of(String title, String content, String hashtag) {
     return new Article(title, content, hashtag);
   }
@@ -73,6 +71,6 @@ public class Article extends AuditingFields {
     return id != null && id.equals(article.id);
   }
 
-  
-  
+
+
 }
