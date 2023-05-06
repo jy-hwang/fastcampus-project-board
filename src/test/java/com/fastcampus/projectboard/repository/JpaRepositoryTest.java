@@ -1,6 +1,7 @@
 package com.fastcampus.projectboard.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ class JpaRepositoryTest {
   }
 
   @DisplayName("insert 테스트")
-  // @Test
+  @Test
   void givenTestData_whenInserting_thenWorksFine() {
 
     // given
@@ -55,7 +56,7 @@ class JpaRepositoryTest {
   }
 
   @DisplayName("update 테스트")
-  // Test
+  @Test
   void givenTestData_whenUpdating_thenWorksFine() {
 
     // given
@@ -80,14 +81,14 @@ class JpaRepositoryTest {
   }
 
   @DisplayName("delete 테스트")
-  // @Test
+  @Test
   void givenTestData_whenDeleting_thenWorksFine() {
 
     // given
     Article article = articleRepository.findById(1L).orElseThrow();
     long previousArticleCount = articleRepository.count();
     long previousArticleCommentCount = articleCommentRepository.count();
-    int deleteCommentSize = article.getArticleComment().size();
+    int deleteCommentSize = article.getArticleComments().size();
 
     // when
     articleRepository.delete(article);
