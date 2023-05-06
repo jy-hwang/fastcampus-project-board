@@ -26,9 +26,9 @@ public class ArticleComment  extends AuditingFields{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  
+
   @Setter @ManyToOne(optional = false) private Article article; // 게시글 (ID)
-  @Setter @Column(nullable = false, length = 500) private  String content; // 본문 
+  @Setter @Column(nullable = false, length = 500) private  String content; // 본문
 
   protected ArticleComment() {  }
 
@@ -38,7 +38,7 @@ public class ArticleComment  extends AuditingFields{
   }
 
   public ArticleComment of(Article article, String content) {
-  return new ArticleComment(article, content);
+    return new ArticleComment(article, content);
   }
 
   @Override
