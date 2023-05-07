@@ -8,10 +8,9 @@ management:
 
 logging:
   level:
-    com.fastcampus.projectboard: debug
-    org.springframework.web.servlet: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-
+    com.fastcampus.projectboard : debug
+    org.springframework.web.servlet : debug
+    org.hibernate.type.descriptor.sql.BasicBinder : trace
 spring:
   datasource:
     url: jdbc:mysql://192.168.219.106:3306/study_db?serverTimezone=UTC&characterEncoding=UTF-8
@@ -28,7 +27,7 @@ spring:
       hibernate.default_batch_fetch_size: 100
   sql.init.mode: always
   data.rest:
-      base-path: /api
-      detection-strategy: annotated
+    base-path: /api
+    detection-strategy: annotated
   #thymeleaf3.decoupled-logic: true
-
+  

@@ -1,3 +1,6 @@
+--테스트계정추가
+--TODO : 테스트용 이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을지 고민해봐야함. -> 시큐리티 적용하려면 어떻게 해야할지 조금 고민해봐야할 문제.
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin','asdasd1234','admin','admin@abc.com','I am your father', now(), 'admin',now(),'admin');
 --123개 게시글
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Nullam molestie nibh in lectus.', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 'Fuscia', 'Michaeline', 'Stephen', '2022-10-21 07:55:55', '2023-03-08 00:02:48');
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Curabitur in libero ut massa volutpat convallis.', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 'Turquoise', 'Demott', 'Francisco', '2022-12-29 03:57:22', '2022-12-02 19:14:21');
