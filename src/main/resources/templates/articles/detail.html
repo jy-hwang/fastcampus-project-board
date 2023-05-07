@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>게시글 페이지</title>
+</head>
+<body>
+<header id="header"></header>
+
+<main>
+  <header>
+    <h1>첫번째글제목</h1>
+  </header>
+
+  <aside>
+    <p>JackieHwang</p>
+    <p><a href="mailto:stratojy@gmail.com">stratojy@gmail.com</a></p>
+    <p><time datetime="2023-05-01T00:00:00">2023-05-05</time></p>
+    <p>#spring</p>
+  </aside>
+
+  <section>
+    <pre>게시글 본문 내용<br><br></pre>
+    <div>
+      <form>
+        <label for="comment-textbox" hidden>댓글</label>
+        <textarea
+            id="comment-textbox"
+            placeholder="댓글을 입력해주세요"></textarea>
+        <button type="submit">쓰기</button>
+      </form>
+      <ul>
+        <li>
+          <div>
+            <strong>jackieHwang</strong>
+            <small><time>2023-05-05</time></small>
+            <p>
+              Cras non velit nec nisi vulputate nonummy.<br />
+              Maecenas tincidunt lacus at velit.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Alice</strong>
+            <small><time>2023-05-06</time></small>
+            <p>
+              Cras non velit nec nisi vulputate nonummy.<br />
+              Maecenas tincidunt lacus at velit.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Rock</strong>
+            <small><time>2023-05-07</time></small>
+            <p>
+              Cras non velit nec nisi vulputate nonummy.<br />
+              Maecenas tincidunt lacus at velit.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <nav>
+      <a href="#">이전글</a>
+      <a href="/articles">목록으로</a>
+      <a href="#">다음글</a>
+    </nav>
+  </section>
+</main>
+
+<footer id="footer"></footer>
+</body>
+</html>
