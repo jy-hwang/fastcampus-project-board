@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -11,10 +11,8 @@
 메인페이지
 푸터
 -->
-<header>
-  header 삽입부
-  <hr/>
-</header>
+<!--header부분처럼 써도 되고 footer 부분 처럼 써도된다. 이하는 footer처럼 쓸것임.-->
+<header th:replace="~{header :: header}"></header>
 
 <main>
 
@@ -89,10 +87,7 @@
 
 
 
-<footer>
-  <hr/>
-  footer 삽입부
-</footer>
+<footer th:replace="footer :: footer"></footer>
 
 </body>
 </html>
