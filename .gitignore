@@ -8,6 +8,9 @@ build/
 ### QueryDSL ###
 /src/main/generated
 
+### JPA Buddy ###
+.jpb/
+
 ### STS ###
 .apt_generated
 .classpath
