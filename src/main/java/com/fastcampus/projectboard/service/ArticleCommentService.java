@@ -1,7 +1,5 @@
 package com.fastcampus.projectboard.service;
 
-import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.repository.ArticleCommentRepository;
 import com.fastcampus.projectboard.repository.ArticleRepository;
@@ -24,6 +22,15 @@ public class ArticleCommentService {
   }
 
   public void saveArticleComment(ArticleCommentDto dto) {
+
+  }
+
+  public void updateArticleComment(ArticleCommentDto dto) {
+
+  }
+
+  public void deleteArticleComment(Long articleCommentId) {
+
   }
 
 }
