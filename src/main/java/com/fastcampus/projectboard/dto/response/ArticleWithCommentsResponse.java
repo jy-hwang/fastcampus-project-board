@@ -15,7 +15,7 @@ public record ArticleWithCommentResponse(
     LocalDateTime createAt,
     String email,
     String nickname,
-    Set<ArticleCommentResponse> articleCommentResponses
+    Set<ArticleCommentResponse> articleCommentsResponse
 
 ) implements Serializable {
 

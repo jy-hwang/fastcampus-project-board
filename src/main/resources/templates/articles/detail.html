@@ -8,6 +8,7 @@
         rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
         crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/css/articles/article-content.css">
 </head>
 <body>
 <header id="header"></header>
@@ -22,12 +23,12 @@
     <!--  작성자 정보 보여주기  -->
     <section class="col-md-5 col-lg-4 order-md-last">
       <aside>
-        <p>JackieHwang</p>
-        <p><a href="mailto:stratojy@gmail.com">stratojy@gmail.com</a></p>
+        <p><span>JackieHwang</span></p>
+        <p><a href="mailto:stratojy@gmail.com">stratojy@abc.com</a></p>
         <p>
           <time datetime="2023-05-01T00:00:00">2023-05-05</time>
         </p>
-        <p>#spring</p>
+        <p><span>#spring</span></p>
       </aside>
     </section>
     <!--  게시글 내용  -->
@@ -52,7 +53,7 @@
         </div>
       </form>
       <!--댓글 보여주는 부분-->
-      <ul class="row me-0">
+      <ul class="row col-7">
         <li class="child-comment">
           <form class="comment-delete-form">
             <input type="hidden" class="article-id"/>
