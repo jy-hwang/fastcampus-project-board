@@ -12,7 +12,7 @@ public record ArticleWithCommentsResponse(
     String title,
     String content,
     String hashtag,
-    LocalDateTime createAt,
+    LocalDateTime createdAt,
     String email,
     String nickname,
     Set<ArticleCommentsResponse> articleCommentsResponse
@@ -20,9 +20,9 @@ public record ArticleWithCommentsResponse(
 ) implements Serializable {
 
   public static ArticleWithCommentsResponse of(Long id, String title, String content, String hashtag,
-      LocalDateTime createAt, String email, String nickname,
+      LocalDateTime createdAt, String email, String nickname,
       Set<ArticleCommentsResponse> articleCommentsResponse) {
-    return new ArticleWithCommentsResponse(id, title, content, hashtag, createAt, email, nickname,
+    return new ArticleWithCommentsResponse(id, title, content, hashtag, createdAt, email, nickname,
         articleCommentsResponse);
   }
 
