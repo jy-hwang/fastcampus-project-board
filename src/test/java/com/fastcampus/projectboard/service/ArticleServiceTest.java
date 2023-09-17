@@ -66,7 +66,7 @@ class ArticleServiceTest {
     SearchType searchType = SearchType.TITLE;
     String searchKeyword = "title";
     Pageable pageable = Pageable.ofSize(20);
-    given(articleRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+    given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
 
     // When
     //List<ArticleDto> articles = sut.searchArticles(SearchType.TITLE,"search keyword");
@@ -74,7 +74,7 @@ class ArticleServiceTest {
 
     // Then - 원래의 경우, 실패하는 테스트 코드를 작성해야함.
     assertThat(articles).isEmpty();
-    then(articleRepository).should().findByTitle(searchKeyword, pageable);
+    then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
   }
 
   @DisplayName("게시글을 조회하면, 게시글을 반환한다..")

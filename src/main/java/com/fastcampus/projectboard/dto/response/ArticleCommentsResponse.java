@@ -4,24 +4,24 @@ import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public record ArticleCommentResponse(
+public record ArticleCommentsResponse(
     //@formatter:off
     Long id, String content, LocalDateTime createdAt, String email, String nickname
     //@formatter:on
 ) implements Serializable {
 
-  public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt,
+  public static ArticleCommentsResponse of(Long id, String content, LocalDateTime createdAt,
       String email, String nickname) {
-    return new ArticleCommentResponse(id, content, createdAt, email, nickname);
+    return new ArticleCommentsResponse(id, content, createdAt, email, nickname);
   }
 
-  public static ArticleCommentResponse from(ArticleCommentDto dto) {
+  public static ArticleCommentsResponse from(ArticleCommentDto dto) {
     String nickname = dto.userAccountDto().nickname();
     if (nickname == null || nickname.isBlank()) {
       nickname = dto.userAccountDto().userId();
     }
 
-    return new ArticleCommentResponse(
+    return new ArticleCommentsResponse(
         dto.id(),
         dto.content(),
         dto.createdAt(),
