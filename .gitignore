@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### intelliJ ###
+.idea/**
+
 ### QueryDSL ###
 /src/main/generated
 
