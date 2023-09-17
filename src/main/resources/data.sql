@@ -1,6 +1,7 @@
 --테스트계정추가
 --TODO : 테스트용 이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을지 고민해봐야함. -> 시큐리티 적용하려면 어떻게 해야할지 조금 고민해봐야할 문제.
 insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin','asdasd1234','admin','admin@abc.com','I am your father', now(), 'admin',now(),'admin');
+
 --50개 게시글
 insert into article (user_account_id, title, content, hashtag, created_by, modified_by, created_at, modified_at) values (1, 'Pellentesque eget nunc.', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', '#Indigo', 'Norry', 'Florida', '2022-12-30 02:29:41', '2022-04-27 17:09:50');
 insert into article (user_account_id, title, content, hashtag, created_by, modified_by, created_at, modified_at) values (1, 'Donec posuere metus vitae ipsum.', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', '#Purple', 'Dionisio', 'Nikki', '2022-07-08 15:31:02', '2022-04-10 02:26:36');
@@ -254,4 +255,3 @@ insert into article_comment (article_id, user_account_id, content, created_by, m
 insert into article_comment (article_id, user_account_id, content, created_by, modified_by, created_at, modified_at) values (37, 1, 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 'Lesley', 'Scarlet', '2022-12-07 00:15:28', '2022-11-29 18:56:30');
 insert into article_comment (article_id, user_account_id, content, created_by, modified_by, created_at, modified_at) values (2, 1, 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 'Kate', 'Horatius', '2023-01-26 04:25:45', '2022-08-29 04:36:16');
 insert into article_comment (article_id, user_account_id, content, created_by, modified_by, created_at, modified_at) values (30, 1, 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 'Haleigh', 'Renee', '2022-09-08 08:32:40', '2023-03-30 22:40:06');
-
