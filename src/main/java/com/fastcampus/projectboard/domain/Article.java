@@ -68,16 +68,10 @@ public class Article extends AuditingFields {
       return true;
     }
     //데이터베이스 영속화 되지 않았다면 같은 개체로 보지 않는다는 처리.
-    /*
-     * if (obj == null) return false; if (getClass() != obj.getClass()) return false; Article other
-     * = (Article) obj;
-     */
-    // pattern variable
     if (!(obj instanceof Article article)) {
       return false;
     }
     return id != null && id.equals(article.id);
   }
-
 
 }
