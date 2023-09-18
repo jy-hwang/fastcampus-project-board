@@ -50,7 +50,7 @@ class JpaRepositoryTest {
 
     // given
     long previousCount = articleRepository.count();
-    UserAccount userAccount = userAccountRepository.save(UserAccount.of("jackieHwang", "pw",null,null,null));
+    UserAccount userAccount = userAccountRepository.save(UserAccount.of("newJY", "pw",null,null,null));
     Article article = Article.of(userAccount,"new article title", "new article Content", "#spring");
 
     // when
