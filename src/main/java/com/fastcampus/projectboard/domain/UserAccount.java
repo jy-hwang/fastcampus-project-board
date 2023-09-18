@@ -17,7 +17,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Table(indexes = {
     //@formatter:off
-      @Index(columnList= "email", unique=true)
+      @Index(columnList= "userId", unique=true)
+    , @Index(columnList= "email", unique=true)
     , @Index(columnList= "createdAt")
     , @Index(columnList= "createdBy")
     //@formatter:on
