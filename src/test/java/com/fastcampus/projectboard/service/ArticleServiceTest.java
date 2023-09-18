@@ -15,6 +15,7 @@ import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +44,7 @@ class ArticleServiceTest {
     -> 컨트롤러 단에서 테스트 진행
     -> 추가적으로 정렬기능까지 가능.
    */
-  @DisplayName("검색어 없이 게시글을 검색하면, 게시글 페이지를 반환한다..")
+  @DisplayName("검색어 없이 게시글을 검색하면, 게시글 페이지를 반환한다.")
   @Test
   void givenNoSearchingParameters_whenSearchingArticles_thenReturnsArticlePage() {
     // Given
@@ -59,17 +60,17 @@ class ArticleServiceTest {
     then(articleRepository).should().findAll(pageable);
   }
 
-  @DisplayName("검색어와 함께 게시글을 검색하면, 게시글 페이지를 반환한다..")
+  @DisplayName("검색어와 함께 게시글을 검색하면, 게시글 페이지를 반환한다.")
   @Test
   void givenSearchingParameters_whenSearchingArticles_thenReturnsArticlePage() {
     // Given
     SearchType searchType = SearchType.TITLE;
     String searchKeyword = "title";
     Pageable pageable = Pageable.ofSize(20);
-    given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
+    given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(
+        Page.empty());
 
     // When
-    //List<ArticleDto> articles = sut.searchArticles(SearchType.TITLE,"search keyword");
     Page<ArticleDto> articles = sut.searchArticles(searchType, searchKeyword, pageable);
 
     // Then - 원래의 경우, 실패하는 테스트 코드를 작성해야함.
@@ -77,7 +78,38 @@ class ArticleServiceTest {
     then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
   }
 
-  @DisplayName("게시글을 조회하면, 게시글을 반환한다..")
+
+  @DisplayName("검색어 없이 게시글을 해시태그 검색하면, 빈 페이지를 반환한다.")
+  @Test
+  void givenNoSearchingParameters_whenSearchingArticlesViaHashtag_thenReturnsEmptyPage() {
+    // Given
+    Pageable pageable = Pageable.ofSize(20);
+
+    // When
+    Page<ArticleDto> articles = sut.searchArticlesViaHashtag(null, pageable);
+
+    // Then - 원래의 경우, 실패하는 테스트 코드를 작성해야함.
+    assertThat(articles).isEqualTo(Page.empty(pageable));
+    then(articleRepository).shouldHaveNoInteractions();
+  }
+
+  @DisplayName("게시글을 해시태그 검색하면, 게시글 페이지를 반환한다.")
+  @Test
+  void givenHashtag_whenSearchingArticlesViaHashtag_thenReturnsArticlesPage() {
+    // Given
+    String hashtag = "#java";
+    Pageable pageable = Pageable.ofSize(20);
+    given(articleRepository.findByHashtag(hashtag, pageable)).willReturn(Page.empty(pageable));
+
+    // When
+    Page<ArticleDto> articles = sut.searchArticlesViaHashtag(hashtag, pageable);
+
+    // Then - 원래의 경우, 실패하는 테스트 코드를 작성해야함.
+    assertThat(articles).isEqualTo(Page.empty(pageable));
+    then(articleRepository).should().findByHashtag(hashtag, pageable);
+  }
+
+  @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
   @Test
   void givenArticleId_whenSearchingArticle_thenReturnsArticle() {
     // Given
@@ -173,6 +205,36 @@ class ArticleServiceTest {
 
     // Then
     then(articleRepository).should().deleteById(articleId);
+  }
+
+  @DisplayName("게시글 수를 조회하면, 게시글 수를 반환한다.")
+  @Test
+  void givenNothing_whenCountingArticles_thenReturnArticleCount() {
+    // Given
+    Long expected = 0L;
+    given(articleRepository.count()).willReturn(expected);
+
+    // When
+    long actual = sut.getArticleCount();
+
+    // Then
+    assertThat(actual).isEqualTo(expected);
+    then(articleRepository).should().count();
+  }
+
+  @DisplayName("해시태그를 조회하면, 유니크 해시태그 리스트를 반환한다.")
+  @Test
+  void givenNothing_whenCalling_thenReturnHashtags() {
+    // Given
+    List<String> expectedHashtags = List.of("#java", "#spring","#boot");
+    given(articleRepository.findAllDistinctHashtags()).willReturn(expectedHashtags);
+
+    // When
+    List<String> actualHashtags = sut.getHashtags();
+
+    // Then
+    assertThat(actualHashtags).isEqualTo(expectedHashtags);
+    then(articleRepository).should().findAllDistinctHashtags();
   }
 
 
