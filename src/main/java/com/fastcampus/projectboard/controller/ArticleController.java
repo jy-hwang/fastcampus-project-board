@@ -52,7 +52,7 @@ public class ArticleController {
         articleService.getArticle(articleId));
     map.addAttribute("article", article);
     map.addAttribute("articleComments", article.articleCommentsResponse());
-
+    map.addAttribute("totalCount",articleService.getArticleCount());
     return "articles/detail";
   }
 
