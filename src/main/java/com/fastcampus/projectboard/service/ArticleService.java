@@ -1,10 +1,12 @@
 package com.fastcampus.projectboard.service;
 
 import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.domain.type.SearchType;
+import com.fastcampus.projectboard.domain.UserAccount;
+import com.fastcampus.projectboard.domain.constant.SearchType;
 import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
+import com.fastcampus.projectboard.repository.UserAccountRepository;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleService {
 
   private final ArticleRepository articleRepository;
+  private final UserAccountRepository userAccountRepository;
 
   @Transactional(readOnly = true)
   public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyword,
@@ -44,21 +47,31 @@ public class ArticleService {
     };
   }
 
-
   @Transactional(readOnly = true)
-  public ArticleWithCommentsDto getArticle(Long articleId) {
+  public ArticleWithCommentsDto getArticleWithComments(Long articleId) {
     return articleRepository.findById(articleId).map(ArticleWithCommentsDto::from).orElseThrow(
         () -> new EntityNotFoundException("게시글이 없습니다. - articleId: " + articleId)
     );
   }
 
-  public void saveArticle(ArticleDto dto) {
-    articleRepository.save(dto.toEntity());
+  @Transactional(readOnly = true)
+  public ArticleDto getArticle(Long articleId) {
+    return articleRepository.findById(articleId)
+        .map(ArticleDto::from)
+        .orElseThrow(
+        () -> new EntityNotFoundException("게시글이 없습니다. - articleId: " + articleId)
+    );
   }
 
-  public void updateArticle(ArticleDto dto) {
+  public void saveArticle(ArticleDto dto) {
+    // TODO : UserAccount 정보 변경 후에 다시 수정할 것
+    //UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
+    //articleRepository.save(dto.toEntity());
+  }
+
+  public void updateArticle(Long articleId, ArticleDto dto) {
     try {
-      Article article = articleRepository.getReferenceById(dto.id());
+      Article article = articleRepository.getReferenceById(articleId);
       if (dto.content() != null) {
         article.setContent(dto.content());
       }

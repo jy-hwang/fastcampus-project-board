@@ -1,7 +1,7 @@
 package com.fastcampus.projectboard.dto;
 
 import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.dto.UserAccountDto;
+import com.fastcampus.projectboard.domain.UserAccount;
 import java.time.LocalDateTime;
 
 public record ArticleDto(
@@ -20,6 +20,29 @@ public record ArticleDto(
 
   public static ArticleDto of(
       //@formatter:off
+        UserAccountDto userAccountDto
+      , String title
+      , String content
+      , String hashtag
+      //@formatter:off
+  ) {
+    return new ArticleDto(
+        //@formatter:off
+          null
+        , userAccountDto
+        , title
+        , content
+        , hashtag
+        , null
+        , null
+        , null
+        , null
+        //@formatter:on
+    );
+  }
+
+  public static ArticleDto of(
+      //@formatter:off
         Long id
       , UserAccountDto userAccountDto
       , String title
@@ -33,7 +56,7 @@ public record ArticleDto(
   ) {
     return new ArticleDto(
         //@formatter:off
-          id
+        id
         , userAccountDto
         , title
         , content
@@ -62,8 +85,8 @@ public record ArticleDto(
     );
   }
 
-  public Article toEntity() {
-    return Article.of(userAccountDto.toEntity(), title, content, hashtag);
+  public Article toEntity(UserAccount userAccount) {
+    return Article.of(userAccount, title, content, hashtag);
   }
 
 }
