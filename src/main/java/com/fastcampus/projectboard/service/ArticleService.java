@@ -64,9 +64,8 @@ public class ArticleService {
   }
 
   public void saveArticle(ArticleDto dto) {
-    // TODO : UserAccount 정보 변경 후에 다시 수정할 것
-    //UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
-    //articleRepository.save(dto.toEntity());
+    UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
+    articleRepository.save(dto.toEntity(userAccount));
   }
 
   public void updateArticle(Long articleId, ArticleDto dto) {

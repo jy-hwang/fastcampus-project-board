@@ -182,16 +182,14 @@ class ArticleServiceTest {
   void givenArticleInfo_whenSavingArticle_thenSavesArticle() {
     // Given
     ArticleDto dto = createArticleDto();
-    // TODO : UserAccount 정보 변경 후에 다시 수정할 것
-    //given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
+    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
     given(articleRepository.save(any(Article.class))).willReturn(createArticle());
-    //willDoNothing().given(articleRepository).save(any(Article.class));
 
     // When
     sut.saveArticle(dto);
 
     // Then
-    //then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
+    then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
     then(articleRepository).should().save(any(Article.class));
   }
 
@@ -316,7 +314,6 @@ class ArticleServiceTest {
 
   private UserAccountDto createUserAccountDto() {
     return UserAccountDto.of(
-        1L,
         "jackieHwang",
         "password",
         "jackieHwang@abc.com",

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -25,7 +26,8 @@ public class ArticleComment extends AuditingFields {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
-  @Setter @ManyToOne(optional = false) private UserAccount userAccount;//유저정보(ID)
+  @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
+  private UserAccount userAccount;//유저정보(ID)
 
   @Setter @ManyToOne(optional = false) private Article article; // 게시글 (ID)
   @Setter @Column(nullable = false, length = 500) private String content; // 본문
