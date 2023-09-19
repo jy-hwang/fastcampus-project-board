@@ -1,14 +1,13 @@
 package com.fastcampus.projectboard.dto.response;
 
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public record ArticleCommentsResponse(
     //@formatter:off
     Long id, String content, LocalDateTime createdAt, String email, String nickname
     //@formatter:on
-) implements Serializable {
+) {
 
   public static ArticleCommentsResponse of(Long id, String content, LocalDateTime createdAt,
       String email, String nickname) {
