@@ -17,7 +17,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,7 +93,7 @@ public class ArticleController {
   public String postNewArticle(ArticleRequest articleRequest) {
     // TODO : 인증 정보를 넣어줘야함.
     articleService.saveArticle(articleRequest.toDto(UserAccountDto.of(
-        "uno", "asdf1234", "uno@mail.com", "Uno", "memo", null, null, null, null
+        "uno", "asdf1234", "uno@mail.com", "Uno", "memo"
     )));
 
     return "redirect:/articles";
@@ -115,7 +114,7 @@ public class ArticleController {
       ModelMap map) {
     // TODO : 인증 정보를 넣어줘야함.
     articleService.updateArticle(articleId, articleRequest.toDto(UserAccountDto.of(
-        "uno", "asdf1234", "uno@mail.com", "Uno", "memo", null, null, null, null
+        "uno", "asdf1234", "uno@mail.com", "Uno", "memo"
     )));
 
     return "redirect:/articles/" + articleId;
