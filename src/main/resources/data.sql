@@ -1,10 +1,10 @@
 --테스트계정추가
 --TODO : 테스트용 이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을지 고민해봐야함. -> 시큐리티 적용하려면 어떻게 해야할지 조금 고민해봐야할 문제.
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin1','asdasd1234','admin1','admin1@abc.com','I am your father', now(), 'admin1',now(),'admin1');
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin2','asdasd1234','admin2','admin2@abc.com','I am your father', now(), 'admin2',now(),'admin2');
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin3','asdasd1234','admin3','admin3@abc.com','I am your father', now(), 'admin3',now(),'admin3');
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin4','asdasd1234','admin4','admin4@abc.com','I am your father', now(), 'admin4',now(),'admin4');
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin5','asdasd1234','admin5','admin5@abc.com','I am your father', now(), 'admin5',now(),'admin5');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin1','{noop}asdasd1234','admin1','admin1@abc.com','I am your father', now(), 'admin1',now(),'admin1');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin2','{noop}asdasd1234','admin2','admin2@abc.com','I am your father', now(), 'admin2',now(),'admin2');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin3','{noop}asdasd1234','admin3','admin3@abc.com','I am your father', now(), 'admin3',now(),'admin3');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin4','{noop}asdasd1234','admin4','admin4@abc.com','I am your father', now(), 'admin4',now(),'admin4');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,created_by,modified_at,modified_by) values ('admin5','{noop}asdasd1234','admin5','admin5@abc.com','I am your father', now(), 'admin5',now(),'admin5');
 
 --123개 게시글
 insert into article (user_id, title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('admin2', 'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', '#Fuscia', 'Gayle', 'Barbi', '2022-09-07 04:17:40', '2023-03-19 03:30:34');

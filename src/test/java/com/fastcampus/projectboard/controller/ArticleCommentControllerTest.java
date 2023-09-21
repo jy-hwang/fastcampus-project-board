@@ -1,8 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -11,10 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.fastcampus.projectboard.config.SecurityConfig;
-import com.fastcampus.projectboard.domain.ArticleComment;
+import com.fastcampus.projectboard.config.TestSecurityConfig;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
-import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.request.ArticleCommentRequest;
 import com.fastcampus.projectboard.service.ArticleCommentService;
 import com.fastcampus.projectboard.util.FormDataEncoder;
@@ -26,10 +22,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 @DisplayName("View 컨트롤러 - 댓글")
-@Import({SecurityConfig.class, FormDataEncoder.class})
+@Import({TestSecurityConfig.class, FormDataEncoder.class})
 @WebMvcTest(ArticleCommentController.class)
 class ArticleCommentControllerTest {
 
@@ -47,9 +45,10 @@ class ArticleCommentControllerTest {
   }
 
 
+  @WithUserDetails(value = "jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
   @DisplayName("[view][POST] 댓글 등록 - 정상 호출")
   @Test
-  void givenArticleCommentInfo_whenRequesting_thenSavesArticleComment() throws Exception{
+  void givenArticleCommentInfo_whenRequesting_thenSavesArticleComment() throws Exception {
     // Given
     long articleId = 1L;
     ArticleCommentRequest request = ArticleCommentRequest.of(articleId, "testComment");
@@ -62,18 +61,20 @@ class ArticleCommentControllerTest {
             .with(csrf())
         )
         .andExpect(status().is3xxRedirection())
-        .andExpect(view().name("redirect:/articles/"+articleId))
+        .andExpect(view().name("redirect:/articles/" + articleId))
         .andExpect((redirectedUrl("/articles/" + articleId)));
     then(articleCommentService).should().saveArticleComment(any(ArticleCommentDto.class));
   }
 
+  @WithUserDetails(value = "jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
   @DisplayName("[view][GET] 댓글 삭제 - 정상 호출")
   @Test
-  void givenArticleCommentIdToDelete_whenRequesting_thenDeleteArticleComment() throws Exception{
+  void givenArticleCommentIdToDelete_whenRequesting_thenDeleteArticleComment() throws Exception {
     // Given
     long articleId = 1L;
     long articleCommentId = 1L;
-    willDoNothing().given(articleCommentService).deleteArticleComment(articleCommentId);
+    String userId = "jackieTest";
+    willDoNothing().given(articleCommentService).deleteArticleComment(articleCommentId, userId);
 
     // When & Then
     mvc.perform(
@@ -83,8 +84,8 @@ class ArticleCommentControllerTest {
                 .with(csrf())
         )
         .andExpect(status().is3xxRedirection())
-        .andExpect(view().name("redirect:/articles/"+articleId))
+        .andExpect(view().name("redirect:/articles/" + articleId))
         .andExpect((redirectedUrl("/articles/" + articleId)));
-    then(articleCommentService).should().deleteArticleComment(articleCommentId);
+    then(articleCommentService).should().deleteArticleComment(articleCommentId, userId);
   }
 }
