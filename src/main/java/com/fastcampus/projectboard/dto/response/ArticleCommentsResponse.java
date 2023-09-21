@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 
 public record ArticleCommentsResponse(
     //@formatter:off
-    Long id, String content, LocalDateTime createdAt, String email, String nickname
+    Long id, String content, LocalDateTime createdAt, String email, String nickname, String userId
     //@formatter:on
 ) {
 
   public static ArticleCommentsResponse of(Long id, String content, LocalDateTime createdAt,
-      String email, String nickname) {
-    return new ArticleCommentsResponse(id, content, createdAt, email, nickname);
+      String email, String nickname, String userId) {
+    return new ArticleCommentsResponse(id, content, createdAt, email, nickname, userId);
   }
 
   public static ArticleCommentsResponse from(ArticleCommentDto dto) {
@@ -25,7 +25,8 @@ public record ArticleCommentsResponse(
         dto.content(),
         dto.createdAt(),
         dto.userAccountDto().email(),
-        nickname);
+        nickname,
+        dto.userAccountDto().userId());
   }
 
 }
