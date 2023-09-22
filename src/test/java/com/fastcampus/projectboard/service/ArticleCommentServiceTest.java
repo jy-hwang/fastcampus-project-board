@@ -16,7 +16,6 @@ import com.fastcampus.projectboard.repository.ArticleRepository;
 import com.fastcampus.projectboard.repository.UserAccountRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -63,7 +62,8 @@ class ArticleCommentServiceTest {
     // Given
     ArticleCommentDto dto = createArticleCommentDto("댓글");
     given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
-    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
+    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(
+        createUserAccount());
     given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
 
     // When
@@ -80,7 +80,8 @@ class ArticleCommentServiceTest {
   void givenNonexitentArticle_whenSavingArticleComment_thenLogsSituationAndDoesNothing() {
     // Given
     ArticleCommentDto dto = createArticleCommentDto("댓글");
-    given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
+    given(articleRepository.getReferenceById(dto.articleId())).willThrow(
+        EntityNotFoundException.class);
 
     // When
     sut.saveArticleComment(dto);
@@ -132,13 +133,15 @@ class ArticleCommentServiceTest {
     // Given
     Long articleCommentId = 1L;
     String userId = "jackieTest";
-    willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_UserId(articleCommentId, userId);
+    willDoNothing().given(articleCommentRepository)
+        .deleteByIdAndUserAccount_UserId(articleCommentId, userId);
 
     // When
     sut.deleteArticleComment(articleCommentId, userId);
 
     // Then
-    then(articleCommentRepository).should().deleteByIdAndUserAccount_UserId(articleCommentId, userId);
+    then(articleCommentRepository).should()
+        .deleteByIdAndUserAccount_UserId(articleCommentId, userId);
   }
 
   private ArticleCommentDto createArticleCommentDto(String content) {
