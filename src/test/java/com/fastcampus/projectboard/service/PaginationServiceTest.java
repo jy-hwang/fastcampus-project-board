@@ -20,21 +20,8 @@ class PaginationServiceTest {
 
   private final PaginationService sut;//service under test
 
-  public PaginationServiceTest(@Autowired PaginationService paginationService) {
+  PaginationServiceTest(@Autowired PaginationService paginationService) {
     this.sut = paginationService;
-  }
-
-  @DisplayName("현재 페이지 번호와 총 페이지 수를 주면, 페이징 바 리스트를 만들어준다.")
-  @MethodSource
-  @ParameterizedTest(name = "[{index}] 현재 페이지 : {0}, 총 페이지 : {1} => {2}")
-  void givenCurrentPageNumberAndTotalPages_whenCalculating_thenReturnsPaginationBarNumbers(
-      int currentPageNumber, int totalPages, List<Integer> expected) {
-    // Given
-
-    // When
-    List<Integer> actual = sut.getPaginationBarNumbers(currentPageNumber, totalPages);
-    // Then
-    assertThat(actual).isEqualTo(expected);
   }
 
   static Stream<Arguments> givenCurrentPageNumberAndTotalPages_whenCalculating_thenReturnsPaginationBarNumbers() {
@@ -52,6 +39,19 @@ class PaginationServiceTest {
     );
   }
 
+  @DisplayName("현재 페이지 번호와 총 페이지 수를 주면, 페이징 바 리스트를 만들어준다.")
+  @MethodSource
+  @ParameterizedTest(name = "[{index}] 현재 페이지 : {0}, 총 페이지 : {1} => {2}")
+  void givenCurrentPageNumberAndTotalPages_whenCalculating_thenReturnsPaginationBarNumbers(
+      int currentPageNumber, int totalPages, List<Integer> expected) {
+    // Given
+
+    // When
+    List<Integer> actual = sut.getPaginationBarNumbers(currentPageNumber, totalPages);
+    // Then
+    assertThat(actual).isEqualTo(expected);
+  }
+
   @Test
   @DisplayName("현재 설정되어 있는 페이지네이션 바의 길이를 알려준다. 기본값 : 5")
   void givenNothing_whenCalling_thenReturnsCurrentBarLength() {
@@ -64,6 +64,5 @@ class PaginationServiceTest {
     assertThat(barLength).isEqualTo(5);
 
   }
-
 
 }
