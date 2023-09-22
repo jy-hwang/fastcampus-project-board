@@ -33,4 +33,16 @@ spring:
   devtools:
     livereload:
       enabled: true
-      
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: cloudtype
+  jpa:
+    hibernate:
+      ddl-auto: create
+  sql:
+    init:
+      mode: always
