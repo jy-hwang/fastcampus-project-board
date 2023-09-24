@@ -182,7 +182,8 @@ class ArticleServiceTest {
   void givenArticleInfo_whenSavingArticle_thenSavesArticle() {
     // Given
     ArticleDto dto = createArticleDto();
-    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
+    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(
+        createUserAccount());
     given(articleRepository.save(any(Article.class))).willReturn(createArticle());
 
     // When
@@ -200,7 +201,8 @@ class ArticleServiceTest {
     Article article = createArticle();
     ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "#springboot");
     given(articleRepository.getReferenceById(dto.id())).willReturn(article);
-    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(dto.userAccountDto().toEntity());
+    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(
+        dto.userAccountDto().toEntity());
 
     // When
     sut.updateArticle(dto.id(), dto);
@@ -286,12 +288,12 @@ class ArticleServiceTest {
   }
 
   private Article createArticle() {
-   Article article = Article.of(
+    Article article = Article.of(
         createUserAccount(),
         "title",
         "content",
         "#java");
-    ReflectionTestUtils.setField(article,"id",1L);
+    ReflectionTestUtils.setField(article, "id", 1L);
 
     return article;
   }

@@ -6,6 +6,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 public class ThymeleafConfig {
+
   @Bean
   public SpringResourceTemplateResolver thymeleafTemplateResolver(
       SpringResourceTemplateResolver defaultTemplateResolver
@@ -15,8 +16,6 @@ public class ThymeleafConfig {
     defaultTemplateResolver.setUseDecoupledLogic(true);
     return defaultTemplateResolver;
   }
-
-
 
 //  @RequiredArgsConstructor
 //  @Getter

@@ -16,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.fastcampus.projectboard.config.SecurityConfig;
 import com.fastcampus.projectboard.config.TestSecurityConfig;
 import com.fastcampus.projectboard.domain.constant.FormStatus;
 import com.fastcampus.projectboard.domain.constant.SearchType;
@@ -61,7 +60,7 @@ class ArticleControllerTest {
 
   @MockBean private PaginationService paginationService;
 
-  public ArticleControllerTest(
+  ArticleControllerTest(
       @Autowired MockMvc mvc,
       @Autowired FormDataEncoder formDataEncoder
   ) {
@@ -71,7 +70,7 @@ class ArticleControllerTest {
 
   @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출 + 페이징 처리 추가")
   @Test
-  public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
+  void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
     //given
     given(articleService.searchArticles(eq(null), eq(null), any(Pageable.class))).willReturn(
         Page.empty());
@@ -92,7 +91,7 @@ class ArticleControllerTest {
 
   @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
   @Test
-  public void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView()
+  void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView()
       throws Exception {
     //given
     SearchType searchType = SearchType.TITLE;
@@ -155,7 +154,7 @@ class ArticleControllerTest {
 
   @DisplayName("[view][GET] 게시글 페이지 - 인증 없을 땐 로그인 페이지로 이동")
   @Test
-  public void givenNothing_whenRequestingArticlePage_thenRedirectsToLoginPage() throws Exception {
+  void givenNothing_whenRequestingArticlePage_thenRedirectsToLoginPage() throws Exception {
     // Given
     long articleId = 1L;
 
@@ -169,7 +168,7 @@ class ArticleControllerTest {
   @WithMockUser
   @DisplayName("[view][GET] 게시글 페이지 - 정상 호출, 인증된 사용자")
   @Test
-  public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
+  void givenAuthorizedUser_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
     //given
     Long articleId = 1L;
     Long totalCount = 1L;
@@ -195,7 +194,7 @@ class ArticleControllerTest {
   @Disabled("구현중")
   @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
   @Test
-  public void givenNothing_whenRequestingArticlesSearchView_thenReturnsArticlesSearchView()
+  void givenNothing_whenRequestingArticlesSearchView_thenReturnsArticlesSearchView()
       throws Exception {
     //given
 
@@ -210,7 +209,7 @@ class ArticleControllerTest {
 
   @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
   @Test
-  public void givenNothing_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView()
+  void givenNothing_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView()
       throws Exception {
     // Given
     List<String> hashtags = List.of("#java", "#spring", "#boot");
@@ -237,7 +236,7 @@ class ArticleControllerTest {
   @WithMockUser
   @DisplayName("[view][GET] 새 게시글 작성 페이지")
   @Test
-  void givenNothing_whenRequesting_thenReturnsNewArticlePage() throws Exception {
+  void givenAuthorizedUser_whenRequesting_thenReturnsNewArticlePage() throws Exception {
     // Given
 
     // When & Then
@@ -248,7 +247,8 @@ class ArticleControllerTest {
         .andExpect(model().attribute("formStatus", FormStatus.CREATE));
 
   }
-  @WithUserDetails(value="jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+
+  @WithUserDetails(value = "jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
   @DisplayName("[view][POST] 새 게시글 등록 - 정상 호출")
   @Test
   void givenArticleInfo_whenRequesting_thenSaveNewArticle() throws Exception {
@@ -270,7 +270,7 @@ class ArticleControllerTest {
 
   @DisplayName("[view][GET] 게시글 페이지 - 인증 없을 땐 로그인 페이지로 이동")
   @Test
-  public void givenNothing_whenRequesting_thenRedirectsToLoginPage() throws Exception {
+  void givenNothing_whenRequesting_thenRedirectsToLoginPage() throws Exception {
     // Given
     long articleId = 1L;
 
@@ -300,7 +300,7 @@ class ArticleControllerTest {
     then(articleService).should().getArticle(articleId);
   }
 
-  @WithUserDetails(value="jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+  @WithUserDetails(value = "jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
   @DisplayName("[view][POST] 게시글 수정 - 정상 호출")
   @Test
   void givenUpdatedArticleInfo_whenRequesting_thenUpdatesNewArticle() throws Exception {
@@ -322,7 +322,7 @@ class ArticleControllerTest {
     then(articleService).should().updateArticle(eq(articleId), any(ArticleDto.class));
   }
 
-  @WithUserDetails(value="jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+  @WithUserDetails(value = "jackieTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
   @DisplayName("[view][POST] 게시글 삭제 - 정상 호출")
   @Test
   void givenArticleIdToDelete_whenRequesting_thenDeletesArticle() throws Exception {
@@ -354,7 +354,7 @@ class ArticleControllerTest {
 
   @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출, 해시태그 입력")
   @Test
-  public void givenHashtag_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView()
+  void givenHashtag_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView()
       throws Exception {
     // Given
     String hashtag = "#java";

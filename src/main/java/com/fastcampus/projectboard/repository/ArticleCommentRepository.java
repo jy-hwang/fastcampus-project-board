@@ -20,9 +20,11 @@ public interface ArticleCommentRepository extends
     //@formatter:on
 
 {
+
   List<ArticleComment> findByArticle_Id(Long articleId);
 
   void deleteByIdAndUserAccount_UserId(Long articleCommentId, String userId);
+
   @Override
   default void customize(QuerydslBindings bindings, QArticleComment root) {
     bindings.excludeUnlistedProperties(true);

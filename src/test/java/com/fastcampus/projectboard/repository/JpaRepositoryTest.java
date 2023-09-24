@@ -2,7 +2,6 @@ package com.fastcampus.projectboard.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fastcampus.projectboard.config.JpaConfig;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.UserAccount;
 import java.util.List;
@@ -28,7 +27,8 @@ class JpaRepositoryTest {
 
   private final UserAccountRepository userAccountRepository;
 
-  protected JpaRepositoryTest(@Autowired ArticleRepository articleRepository,
+  JpaRepositoryTest(
+      @Autowired ArticleRepository articleRepository,
       @Autowired ArticleCommentRepository articleCommentRepository,
       @Autowired UserAccountRepository userAccountRepository) {
     this.articleRepository = articleRepository;
@@ -55,8 +55,10 @@ class JpaRepositoryTest {
 
     // given
     long previousCount = articleRepository.count();
-    UserAccount userAccount = userAccountRepository.save(UserAccount.of("newJY", "pw",null,null,null));
-    Article article = Article.of(userAccount,"new article title", "new article Content", "#spring");
+    UserAccount userAccount = userAccountRepository.save(
+        UserAccount.of("newJY", "pw", null, null, null));
+    Article article = Article.of(userAccount, "new article title", "new article Content",
+        "#spring");
 
     // when
     articleRepository.save(article);
@@ -113,9 +115,10 @@ class JpaRepositoryTest {
 
   @EnableJpaAuditing
   @TestConfiguration
-  public static class TestJpaConfig {
+  static class TestJpaConfig {
+
     @Bean
-    public AuditorAware<String> auditorAware() {
+    AuditorAware<String> auditorAware() {
       return () -> Optional.of("jackie");
     }
   }

@@ -30,20 +30,16 @@ import lombok.ToString;
 @Entity
 public class Article extends AuditingFields {
 
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-
-  @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
-  private UserAccount userAccount;//유저정보(ID)
-
-  @Setter @Column(nullable = false) private String title; // 제목
-  @Setter @Column(nullable = false, length = 10000) private String content; // 본문
-
-  @Setter private String hashtag; // 해시태그
-
   @ToString.Exclude
   @OrderBy("createdAt DESC")
   @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
   private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+  @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
+  private UserAccount userAccount;//유저정보(ID)
+  @Setter @Column(nullable = false) private String title; // 제목
+  @Setter @Column(nullable = false, length = 10000) private String content; // 본문
+  @Setter private String hashtag; // 해시태그
 
   protected Article() {
   }

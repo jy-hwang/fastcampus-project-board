@@ -52,7 +52,7 @@ public class ArticleCommentService {
       if (dto.content() != null) {
         articleComment.setContent(dto.content());
       }
-    }catch(EntityNotFoundException e){
+    } catch (EntityNotFoundException e) {
       log.warn("댓글 수정 실패. 댓글을 찾을 수 없습니다. - dto : {}", dto);
     }
   }
