@@ -26,10 +26,15 @@ public class ArticleComment extends AuditingFields {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
-  @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
+  @Setter
+  @ManyToOne(optional = false)
+  private Article article; // 게시글 (ID)
+
+  @Setter
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "userId")
   private UserAccount userAccount;//유저정보(ID)
 
-  @Setter @ManyToOne(optional = false) private Article article; // 게시글 (ID)
   @Setter @Column(nullable = false, length = 500) private String content; // 본문
 
   protected ArticleComment() {
@@ -46,19 +51,19 @@ public class ArticleComment extends AuditingFields {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
-
-  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
-    if (!(obj instanceof ArticleComment articleComment)) {
+    if (!(obj instanceof ArticleComment that)) {
       return false;
     }
-    return id != null && id.equals(articleComment.id);
+    return this.getId() != null && this.getId().equals(that.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getId());
   }
 
 }

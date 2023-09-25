@@ -35,8 +35,12 @@ public class Article extends AuditingFields {
   @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
   private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-  @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
+
+  @Setter
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "userId")
   private UserAccount userAccount;//유저정보(ID)
+
   @Setter @Column(nullable = false) private String title; // 제목
   @Setter @Column(nullable = false, length = 10000) private String content; // 본문
   @Setter private String hashtag; // 해시태그
@@ -56,20 +60,20 @@ public class Article extends AuditingFields {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
-
-  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
     //데이터베이스 영속화 되지 않았다면 같은 개체로 보지 않는다는 처리.
-    if (!(obj instanceof Article article)) {
+    if (!(obj instanceof Article that)) {
       return false;
     }
-    return id != null && id.equals(article.id);
+    return this.getId() != null && this.getId().equals(that.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getId());
   }
 
 }
