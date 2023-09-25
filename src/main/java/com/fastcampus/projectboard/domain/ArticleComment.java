@@ -51,19 +51,19 @@ public class ArticleComment extends AuditingFields {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
-
-  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
-    if (!(obj instanceof ArticleComment articleComment)) {
+    if (!(obj instanceof ArticleComment that)) {
       return false;
     }
-    return id != null && id.equals(articleComment.id);
+    return this.getId() != null && this.getId().equals(that.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getId());
   }
 
 }

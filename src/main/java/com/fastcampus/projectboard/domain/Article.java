@@ -60,20 +60,20 @@ public class Article extends AuditingFields {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
-
-  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
     //데이터베이스 영속화 되지 않았다면 같은 개체로 보지 않는다는 처리.
-    if (!(obj instanceof Article article)) {
+    if (!(obj instanceof Article that)) {
       return false;
     }
-    return id != null && id.equals(article.id);
+    return this.getId() != null && this.getId().equals(that.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getId());
   }
 
 }
