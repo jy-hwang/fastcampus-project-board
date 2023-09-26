@@ -108,6 +108,7 @@ class ArticleServiceTest {
     Pageable pageable = Pageable.ofSize(20);
     given(articleRepository.findByHashtagNames(List.of(noExistentHashtagName), pageable))
         .willReturn(new PageImpl<>(List.of(), pageable, 0));
+
     // When
     Page<ArticleDto> articles = sut.searchArticlesViaHashtag(noExistentHashtagName, pageable);
 
@@ -123,20 +124,19 @@ class ArticleServiceTest {
     String hashtagName = "java";
     Pageable pageable = Pageable.ofSize(20);
     Article expectedArticle = createArticle();
-
     given(articleRepository.findByHashtagNames(List.of(hashtagName), pageable))
-        .willReturn(new PageImpl<>(List.of(), pageable, 1));
+        .willReturn(new PageImpl<>(List.of(expectedArticle), pageable, 1));
 
     // When
     Page<ArticleDto> articles = sut.searchArticlesViaHashtag(hashtagName, pageable);
 
     // Then - 원래의 경우, 실패하는 테스트 코드를 작성해야함.
     assertThat(articles).isEqualTo(
-        new PageImpl<>(List.of(ArticleDto.from(expectedArticle), pageable, 1)));
+        new PageImpl<>(List.of(ArticleDto.from(expectedArticle)), pageable, 1));
     then(articleRepository).should().findByHashtagNames(List.of(hashtagName), pageable);
   }
 
-  @DisplayName("게시글 ID로 조회하면, 댓글 달긴 게시글을 반환한다.")
+  @DisplayName("게시글 ID로 조회하면, 댓글 달린 게시글을 반환한다.")
   @Test
   void givenArticleId_whenSearchingArticleWithComments_thenReturnsArticleWithComments() {
     // Given
@@ -191,7 +191,7 @@ class ArticleServiceTest {
     assertThat(article)
         .hasFieldOrPropertyWithValue("title", article.getTitle())
         .hasFieldOrPropertyWithValue("content", article.getContent())
-        .hasFieldOrPropertyWithValue("hashtag",
+        .hasFieldOrPropertyWithValue("hashtagDtos",
             article.getHashtags().stream()
                 .map(HashtagDto::from)
                 .collect(Collectors.toUnmodifiableSet()));
@@ -242,7 +242,7 @@ class ArticleServiceTest {
 
   @DisplayName("게시글의 수정 정보를 입력하면, 게시글을 수정한다.")
   @Test
-  void givenModifiedInfo_whenUpdatingArticle_thenUpdatesArticle() {
+  void givenModifiedArticleInfo_whenUpdatingArticle_thenUpdatesArticle() {
     // Given
     Article article = createArticle();
     ArticleDto dto = createArticleDto("새 타이틀", "새 내용 #springboot");
