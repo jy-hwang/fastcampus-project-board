@@ -3,6 +3,8 @@ package com.fastcampus.projectboard.dto;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.UserAccount;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record ArticleDto(
     //@formatter:off
@@ -10,7 +12,7 @@ public record ArticleDto(
     , UserAccountDto userAccountDto
     , String title
     , String content
-    , String hashtag
+    , Set<HashtagDto> hashtagDtos
     , LocalDateTime createdAt
     , String createdBy
     , LocalDateTime modifiedAt
@@ -23,7 +25,7 @@ public record ArticleDto(
         UserAccountDto userAccountDto
       , String title
       , String content
-      , String hashtag
+      , Set<HashtagDto> hashtagDtos
       //@formatter:off
   ) {
     return new ArticleDto(
@@ -32,7 +34,7 @@ public record ArticleDto(
         , userAccountDto
         , title
         , content
-        , hashtag
+        , hashtagDtos
         , null
         , null
         , null
@@ -47,7 +49,7 @@ public record ArticleDto(
       , UserAccountDto userAccountDto
       , String title
       , String content
-      , String hashtag
+      , Set<HashtagDto> hashtagDtos
       , LocalDateTime createdAt
       , String createdBy
       , LocalDateTime modifiedAt
@@ -60,7 +62,7 @@ public record ArticleDto(
         , userAccountDto
         , title
         , content
-        , hashtag
+        , hashtagDtos
         , createdAt
         , createdBy
         , modifiedAt
@@ -76,7 +78,7 @@ public record ArticleDto(
         , UserAccountDto.from(entity.getUserAccount())
         , entity.getTitle()
         , entity.getContent()
-        , entity.getHashtag()
+        , entity.getHashtags().stream().map(HashtagDto::from).collect(Collectors.toUnmodifiableSet())
         , entity.getCreatedAt()
         , entity.getCreatedBy()
         , entity.getModifiedAt()
@@ -86,7 +88,7 @@ public record ArticleDto(
   }
 
   public Article toEntity(UserAccount userAccount) {
-    return Article.of(userAccount, title, content, hashtag);
+    return Article.of(userAccount, title, content);
   }
 
 }
