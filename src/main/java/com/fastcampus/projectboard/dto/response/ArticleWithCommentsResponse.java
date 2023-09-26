@@ -37,7 +37,7 @@ public record ArticleWithCommentsResponse(
         dto.id(),
         dto.title(),
         dto.content(),
-        dto.hashtags().stream().map(HashtagDto::hashtagName).collect(Collectors.toUnmodifiableSet()),
+        dto.hashtagDtos().stream().map(HashtagDto::hashtagName).collect(Collectors.toUnmodifiableSet()),
         dto.createdAt(),
         dto.userAccountDto().email(),
         nickname,

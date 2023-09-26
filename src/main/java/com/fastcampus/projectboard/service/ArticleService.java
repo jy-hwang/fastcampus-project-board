@@ -78,8 +78,7 @@ public class ArticleService {
 
     Article article = dto.toEntity(userAccount);
     article.addHashtags(hashtags);
-
-    articleRepository.save(dto.toEntity(userAccount));
+    articleRepository.save(article);
 
   }
 
@@ -153,6 +152,12 @@ public class ArticleService {
     Set<String> existingHashtagNames = hashtags.stream()
         .map(Hashtag::getHashtagName)
         .collect(Collectors.toUnmodifiableSet());
+
+    hashtagNamesInContent.forEach(newHashtagName -> {
+      if (!existingHashtagNames.contains(newHashtagName)) {
+        hashtags.add(Hashtag.of(newHashtagName));
+      }
+    });
 
     return hashtags;
   }
