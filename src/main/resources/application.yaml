@@ -8,15 +8,10 @@ management:
 
 logging:
   level:
-    com.fastcampus.projectboard : debug
-    org.springframework.web.servlet : debug
-    org.hibernate.type.descriptor.sql.BasicBinder : trace
+    com.fastcampus.projectboard: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
 spring:
-  datasource:
-    url: ${LOCAL_DB_URL}
-    username: ${LOCAL_DB_USERNAME}
-    password: ${LOCAL_DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     defer-datasource-initialization: true
@@ -33,3 +28,25 @@ spring:
   devtools:
     livereload:
       enabled: true
+
+---
+spring:
+  datasource:
+    url: ${LOCAL_DB_URL_POSTGRES}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  config:
+    activate:
+      on-profile: postgres
+
+---
+spring:
+  datasource:
+    url: ${LOCAL_DB_URL_MYSQL}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    activate:
+      on-profile: mysql
