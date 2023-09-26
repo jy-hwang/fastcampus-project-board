@@ -3,11 +3,13 @@ package com.fastcampus.projectboard.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fastcampus.projectboard.domain.Article;
+import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.domain.Hashtag;
 import com.fastcampus.projectboard.domain.UserAccount;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,6 +130,71 @@ class JpaRepositoryTest {
 
   }
 
+  @DisplayName("대댓글 조회 테스트")
+  @Test
+  void givenParentCommentId_whenSelecting_thenReturnsChildComments() {
+    // Given
+
+    // When
+    Optional<ArticleComment> parentComment = articleCommentRepository.findById(1L);
+
+    // Then
+    assertThat(parentComment).get()
+        .hasFieldOrPropertyWithValue("parentCommentId", null)
+        .extracting("childComments", InstanceOfAssertFactories.COLLECTION)
+        .hasSize(5)
+    ;
+  }
+
+  @DisplayName("댓글에 대댓글 삽입 테스트")
+  @Test
+  void givenParentComment_whenSaving_thenInsertsChildComment() {
+    // Given
+    ArticleComment parentComment = articleCommentRepository.getReferenceById(1L);
+    ArticleComment childComment = ArticleComment.of(parentComment.getArticle(), parentComment.getUserAccount(), "대댓글");
+
+    // When
+    parentComment.addChildComment(childComment);
+    articleCommentRepository.flush();
+
+    // Then
+    assertThat(articleCommentRepository.findById(1L)).get()
+        .hasFieldOrPropertyWithValue("parentCommentId", null)
+        .extracting("childComments", InstanceOfAssertFactories.COLLECTION)
+        .hasSize(6)
+    ;
+  }
+
+
+  @DisplayName("댓글 삭제와 대댓글 전체 연동 삭제 테스트 - 댓글 ID + 유저 ID")
+  @Test
+  void givenArticleCommentIdHavingChildCommentsAndUserId_whenDeletingParentComment_thenDeletesEveryComment() {
+    // Given
+    long previousArticleCommentCount = articleCommentRepository.count();
+
+    // When
+    articleCommentRepository.deleteByIdAndUserAccount_UserId(1L, "admin4");
+
+    // Then
+    assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - 6);
+
+  }
+
+  @DisplayName("댓글 삭제와 대댓글 전체 연동 삭제 테스트")
+  @Test
+  void givenArticleCommentIdHavingChildComments_whenDeletingParentComment_thenDeletesEveryComment() {
+    // Given
+    ArticleComment parentComment = articleCommentRepository.getReferenceById(1L);
+    long previousArticleCommentCount = articleCommentRepository.count();
+
+    // When
+    articleCommentRepository.delete(parentComment);
+
+    // Then
+    assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - 6);
+
+  }
+
   @DisplayName("[Querydsl] 전체 hashtag 리스트에서 이름만 조회하기")
   @Test
   void givenNothing_whenQueryingHashtags_thenReturnsHashtagNames() {
@@ -160,7 +227,6 @@ class JpaRepositoryTest {
     assertThat(articlePage.getTotalElements()).isEqualTo(17);
     assertThat(articlePage.getTotalPages()).isEqualTo(4);
   }
-
 
   @EnableJpaAuditing
   @TestConfiguration
