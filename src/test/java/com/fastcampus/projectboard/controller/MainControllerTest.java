@@ -1,12 +1,10 @@
 package com.fastcampus.projectboard.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.fastcampus.projectboard.config.SecurityConfig;
 import com.fastcampus.projectboard.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,7 @@ class MainControllerTest {
 
   private final MockMvc mvc;
 
-  public MainControllerTest(@Autowired MockMvc mvc) {
+  MainControllerTest(@Autowired MockMvc mvc) {
     this.mvc = mvc;
   }
 

@@ -24,6 +24,7 @@ public class TestSecurityConfig {
             "pw",
             "jackie-test@abc.com",
             "jackie-test",
-            "test memo" )));  }
+            "test memo")));
+  }
 
 }
