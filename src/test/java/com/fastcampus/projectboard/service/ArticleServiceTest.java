@@ -188,7 +188,7 @@ class ArticleServiceTest {
     ArticleDto dto = sut.getArticle(articleId);
 
     // Then
-    assertThat(article)
+    assertThat(dto)
         .hasFieldOrPropertyWithValue("title", article.getTitle())
         .hasFieldOrPropertyWithValue("content", article.getContent())
         .hasFieldOrPropertyWithValue("hashtagDtos",
@@ -368,7 +368,7 @@ class ArticleServiceTest {
 
 
   private UserAccount createUserAccount() {
-    return createUserAccount("jackie");
+    return createUserAccount("jackieHwang");
   }
 
   private UserAccount createUserAccount(String userId) {
