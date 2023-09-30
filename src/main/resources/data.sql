@@ -1139,11 +1139,11 @@ insert into article_comment (article_id, user_id, parent_comment_id, content, cr
 
 -- 대댓글 샘플데이터 5개
 insert into article_comment (article_id, user_id, parent_comment_id, content, created_by, modified_by, created_at, modified_at) values
-  (46, 'admin4', 1, '퍼가요~ 1', 'Aigneis', 'Rubi', '2022-07-10 11:27:30', '2022-07-23 15:36:56')
-, (46, 'admin3', 1, '퍼가요~ 2', 'Steve', 'Abagael', '2022-07-12 06:22:21', '2022-12-12 15:24:18')
-, (46, 'admin2', 1, '퍼가요~ 3', 'Prudi', 'Juana', '2022-07-28 02:01:43', '2022-06-18 10:27:31')
-, (46, 'admin1', 1, '퍼가요~ 4', 'Bobbe', 'Ellwood', '2022-08-03 01:35:07', '2023-01-29 17:36:37')
-, (46, 'admin4', 1, '다시 퍼가요~ 5', 'Trip', 'Vanessa', '2022-08-05 19:53:59', '2022-10-13 18:22:32')
+  (46, 'admin4', 10, '퍼가요~ 1', 'Aigneis', 'Rubi', '2022-07-10 11:27:30', '2022-07-23 15:36:56')
+, (46, 'admin3', 10, '퍼가요~ 2', 'Steve', 'Abagael', '2022-07-12 06:22:21', '2022-12-12 15:24:18')
+, (46, 'admin2', 10, '퍼가요~ 3', 'Prudi', 'Juana', '2022-07-28 02:01:43', '2022-06-18 10:27:31')
+, (46, 'admin1', 10, '퍼가요~ 4', 'Bobbe', 'Ellwood', '2022-08-03 01:35:07', '2023-01-29 17:36:37')
+, (46, 'admin4', 10, '다시 퍼가요~ 5', 'Trip', 'Vanessa', '2022-08-05 19:53:59', '2022-10-13 18:22:32')
 ;
 
 
