@@ -75,3 +75,4 @@ spring:
       on-profile: test
   datasource:
     url: jdbc:h2:mem:testdb
+
