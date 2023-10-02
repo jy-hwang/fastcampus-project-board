@@ -136,7 +136,7 @@ class JpaRepositoryTest {
     // Given
 
     // When
-    Optional<ArticleComment> parentComment = articleCommentRepository.findById(1L);
+    Optional<ArticleComment> parentComment = articleCommentRepository.findById(10L);
 
     // Then
     assertThat(parentComment).get()
@@ -150,7 +150,7 @@ class JpaRepositoryTest {
   @Test
   void givenParentComment_whenSaving_thenInsertsChildComment() {
     // Given
-    ArticleComment parentComment = articleCommentRepository.getReferenceById(1L);
+    ArticleComment parentComment = articleCommentRepository.getReferenceById(10L);
     ArticleComment childComment = ArticleComment.of(parentComment.getArticle(), parentComment.getUserAccount(), "대댓글");
 
     // When
@@ -158,7 +158,7 @@ class JpaRepositoryTest {
     articleCommentRepository.flush();
 
     // Then
-    assertThat(articleCommentRepository.findById(1L)).get()
+    assertThat(articleCommentRepository.findById(10L)).get()
         .hasFieldOrPropertyWithValue("parentCommentId", null)
         .extracting("childComments", InstanceOfAssertFactories.COLLECTION)
         .hasSize(6)
@@ -173,7 +173,7 @@ class JpaRepositoryTest {
     long previousArticleCommentCount = articleCommentRepository.count();
 
     // When
-    articleCommentRepository.deleteByIdAndUserAccount_UserId(1L, "admin4");
+    articleCommentRepository.deleteByIdAndUserAccount_UserId(10L, "admin3");
 
     // Then
     assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - 6);
@@ -184,7 +184,7 @@ class JpaRepositoryTest {
   @Test
   void givenArticleCommentIdHavingChildComments_whenDeletingParentComment_thenDeletesEveryComment() {
     // Given
-    ArticleComment parentComment = articleCommentRepository.getReferenceById(1L);
+    ArticleComment parentComment = articleCommentRepository.getReferenceById(10L);
     long previousArticleCommentCount = articleCommentRepository.count();
 
     // When
