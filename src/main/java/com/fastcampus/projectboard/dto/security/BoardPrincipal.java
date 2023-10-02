@@ -22,26 +22,8 @@ public record BoardPrincipal(
 
 ) implements UserDetails, OAuth2User {
 
-  public static BoardPrincipal of(
-      String username,
-      String password,
-      String email,
-      String nickname,
-      String memo
-  ) {
-    Set<RoleType> roleTypes = Set.of(RoleType.USER, RoleType.ADMIN);
-    return new BoardPrincipal(username,
-        password,
-        roleTypes.stream()
-            .map(RoleType::getName)
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toUnmodifiableSet())
-        ,
-        email,
-        nickname,
-        memo,
-        Map.of()
-    );
+  public static BoardPrincipal of(String username, String password, String email, String nickname, String memo) {
+    return BoardPrincipal.of(username, password, email, nickname, memo, Map.of());
   }
 
   public static BoardPrincipal of(
@@ -52,6 +34,7 @@ public record BoardPrincipal(
       String memo,
       Map<String, Object> oAuth2Attributes
   ) {
+    // 지금은 인증만 하고 권한은 따로 다루고 있지 않아서 임의로 세팅한다.
     Set<RoleType> roleTypes = Set.of(RoleType.USER, RoleType.ADMIN);
     return new BoardPrincipal(username,
         password,
