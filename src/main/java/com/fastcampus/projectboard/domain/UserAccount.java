@@ -58,7 +58,7 @@ public class UserAccount extends AuditingFields {
       String email,
       String nickname,
       String memo) {
-    return new UserAccount(
+    return UserAccount.of(
         userId,
         userPassword,
         email,
