@@ -2,12 +2,14 @@ package com.fastcampus.projectboard.dto.security;
 
 import com.fastcampus.projectboard.dto.UserAccountDto;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public record BoardPrincipal(
     String username,
@@ -15,15 +17,18 @@ public record BoardPrincipal(
     Collection<? extends GrantedAuthority> authorities,
     String email,
     String nickname,
-    String memo
+    String memo,
+    Map<String, Object> oAuth2Attributes
 
-) implements UserDetails {
+) implements UserDetails, OAuth2User {
 
-  public static BoardPrincipal of(String username,
+  public static BoardPrincipal of(
+      String username,
       String password,
       String email,
       String nickname,
-      String memo) {
+      String memo
+  ) {
     Set<RoleType> roleTypes = Set.of(RoleType.USER, RoleType.ADMIN);
     return new BoardPrincipal(username,
         password,
@@ -34,7 +39,31 @@ public record BoardPrincipal(
         ,
         email,
         nickname,
-        memo);
+        memo,
+        Map.of()
+    );
+  }
+
+  public static BoardPrincipal of(
+      String username,
+      String password,
+      String email,
+      String nickname,
+      String memo,
+      Map<String, Object> oAuth2Attributes
+  ) {
+    Set<RoleType> roleTypes = Set.of(RoleType.USER, RoleType.ADMIN);
+    return new BoardPrincipal(username,
+        password,
+        roleTypes.stream()
+            .map(RoleType::getName)
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toUnmodifiableSet())
+        ,
+        email,
+        nickname,
+        memo,
+        oAuth2Attributes);
   }
 
   public static BoardPrincipal from(UserAccountDto dto) {
@@ -77,6 +106,14 @@ public record BoardPrincipal(
 
   @Override public boolean isEnabled() {
     return true;
+  }
+
+  @Override public Map<String, Object> getAttributes() {
+    return oAuth2Attributes;
+  }
+
+  @Override public String getName() {
+    return username;
   }
 
   public enum RoleType {
