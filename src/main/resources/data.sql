@@ -1,10 +1,14 @@
 --테스트계정 5개
 --TODO : 테스트용 이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을지 고민해봐야함. -> 시큐리티 적용하려면 어떻게 해야할지 조금 고민해봐야할 문제.
-insert into user_account(user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values ('admin1','{noop}asdasd1234','admin1','admin1@abc.com','I am your father', now(), 'admin1',now(),'admin1')
-, ('admin2','{noop}asdasd1234','admin2','admin2@abc.com','I am your father', now(), 'admin2',now(),'admin2')
-, ('admin3','{noop}asdasd1234','admin3','admin3@abc.com','I am your father', now(), 'admin3',now(),'admin3')
-, ('admin4','{noop}asdasd1234','admin4','admin4@abc.com','I am your father', now(), 'admin4',now(),'admin4')
-, ('admin5','{noop}asdasd1234','admin5','admin5@abc.com','I am your father', now(), 'admin5',now(),'admin5')
+insert into user_account(user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+('admin1','{noop}asdasd1234','admin1','admin1@abc.com','I''m sorry but', now(), 'admin1',now(),'admin1')
+, ('admin2','{noop}asdasd1234','admin2','admin2@abc.com','Don''t wanna talk', now(), 'admin2',now(),'admin2')
+, ('admin3','{noop}asdasd1234','admin3','admin3@abc.com','I need a moment before I go', now(), 'admin3',now(),'admin3')
+, ('admin4','{noop}asdasd1234','admin4','admin4@abc.com','It''s nothing personal', now(), 'admin4',now(),'admin4')
+, ('admin5','{noop}asdasd1234','admin5','admin5@abc.com','I draw the blinds', now(), 'admin5',now(),'admin5')
+, ('user1','{noop}asdasd1234','user1','user1@abc.com','They don''t need to see me cry', now(), 'user1',now(),'user1')
+, ('user2','{noop}asdasd1234','user2','user2@abc.com','Cause even if they understand', now(), 'user2',now(),'user2')
+, ('user3','{noop}asdasd1234','user3','user3@abc.com','They don''t understand', now(), 'user2',now(),'user2')
 ;
 
 --123개 게시글
