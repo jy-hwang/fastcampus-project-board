@@ -1,5 +1,6 @@
 package com.fastcampus.projectboard.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -10,22 +11,15 @@ public class ThymeleafConfig {
   @Bean
   public SpringResourceTemplateResolver thymeleafTemplateResolver(
       SpringResourceTemplateResolver defaultTemplateResolver
-      //,Thymeleaf3Properties thymeleaf3Properties
+      , Thymeleaf3Properties thymeleaf3Properties
   ) {
-    //defaultTemplateResolver.setUseDecoupledLogic(thymeleaf3Properties.isDecoupledLogic());
-    defaultTemplateResolver.setUseDecoupledLogic(true);
+    defaultTemplateResolver.setUseDecoupledLogic(thymeleaf3Properties.decoupledLogic());
     return defaultTemplateResolver;
   }
 
-//  @RequiredArgsConstructor
-//  @Getter
-//  @ConstructorBinding
-//  @ConfigurationProperties("spring.thymeleaf3")
-//  public static class Thymeleaf3Properties {
-//    /**
-//     * Use Thymeleaf 3 Decoupled Logic
-//     */
-//    private final boolean decoupledLogic;
-//  }
+  @ConfigurationProperties("spring.thymeleaf3")
+  public record Thymeleaf3Properties(boolean decoupledLogic) {
+
+  }
 
 }
