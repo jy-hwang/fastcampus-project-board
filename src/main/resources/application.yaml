@@ -59,6 +59,18 @@ spring:
 ---
 spring:
   datasource:
+    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}?serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+  config:
+    activate:
+      on-profile: mariadb
+server:
+  port: 8082
+---
+spring:
+  datasource:
     url: ${LOCAL_DB_URL_MYSQL}
     username: ${LOCAL_DB_USERNAME}
     password: ${LOCAL_DB_PASSWORD}
@@ -66,7 +78,8 @@ spring:
   config:
     activate:
       on-profile: mysql
-
+server:
+  port: 8081
 ---
 
 spring:
