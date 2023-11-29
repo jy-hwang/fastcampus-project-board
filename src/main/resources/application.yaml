@@ -1,3 +1,6 @@
+server:
+  port: 8180
+
 debug: false
 management:
   endpoints:
@@ -67,7 +70,7 @@ spring:
     activate:
       on-profile: mariadb
 server:
-  port: 8082
+  port: 8081
 ---
 spring:
   datasource:
@@ -78,8 +81,7 @@ spring:
   config:
     activate:
       on-profile: mysql
-server:
-  port: 8081
+
 ---
 
 spring:
