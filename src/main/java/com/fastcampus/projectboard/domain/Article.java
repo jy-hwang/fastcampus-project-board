@@ -18,9 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnTransformer;
 
 @Getter
 @ToString(callSuper = true)
@@ -33,7 +36,10 @@ import lombok.ToString;
 public class Article extends AuditingFields {
 
   @Setter @Column(nullable = false) private String title; // 제목
-  @Setter @Column(nullable = false, length = 10000) private String content; // 본문
+
+  @Setter @Column(nullable = false, length = 10000) @Size(max=10000)
+  @ColumnTransformer(read = "board.pdbDec('normal',content,'',0)", write = "board.pdbEnc('normal',?,'')" )
+  private String content; // 본문
 
   @ToString.Exclude
   @JoinTable(
