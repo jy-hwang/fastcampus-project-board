@@ -1,3 +1,6 @@
+server:
+  port: 8180
+
 debug: false
 management:
   endpoints:
@@ -66,6 +69,16 @@ spring:
   config:
     activate:
       on-profile: mysql
+---
+spring:
+  datasource:
+    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}?serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+  config:
+    activate:
+      on-profile: mariadb
 
 ---
 
